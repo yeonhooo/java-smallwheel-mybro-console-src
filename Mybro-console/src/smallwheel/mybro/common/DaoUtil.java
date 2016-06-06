@@ -4,5 +4,5 @@ package smallwheel.mybro.common;
  * The Class DaoUtil.
  */
 public class DaoUtil {
-	// TODO ÃßÈÄ °øÅë µÈ ºÎºÐ À¯Æ¿·Î ÃßÃâ. ¿©±âµµ DBMSº°·Î °´Ã¼¸¦ ¸¸µé¾îÁÖ´Â ÆÑÅä¸®¸¦ »ç¿ëÇÏ´Â°Ç ¾î¶³±î?
+	// TODO ì¶”í›„ ê³µí†µ ëœ ë¶€ë¶„ ìœ í‹¸ë¡œ ì¶”ì¶œ. ì—¬ê¸°ë„ DBMSë³„ë¡œ ê°ì²´ë¥¼ ë§Œë“¤ì–´ì£¼ëŠ” íŒ©í† ë¦¬ë¥¼ ì‚¬ìš©í•˜ëŠ”ê±´ ì–´ë–¨ê¹Œ?
 }

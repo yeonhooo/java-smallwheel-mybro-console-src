@@ -19,7 +19,7 @@ public class DBManager {
 	PreparedStatement pstmt = null;
 
 	/**
-	 *¿¬°áÀÌ ²÷¾îÁø °÷ÀÌ ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+	 *ì—°ê²°ì´ ëŠì–´ì§„ ê³³ì´ ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
 	 */
 	public void checkConnection(String dbms) {
 		LOGGER.info("MSG] " + dbms + " connect");
@@ -34,11 +34,11 @@ public class DBManager {
 	}
 
 	/**
-	 * ¿¬°áÀÌ ²÷¾îÁø °÷ÀÌ ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
-	 * @param ip µ¥ÀÌÅÍº£ÀÌ½º IP
-	 * @param id ¾ÆÀÌµğ
-	 * @param pw ºñ¹ø
-	 * @param dbname µ¥ÀÌÅÍº£ÀÌ½º¸í
+	 * ì—°ê²°ì´ ëŠì–´ì§„ ê³³ì´ ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
+	 * @param ip ë°ì´í„°ë² ì´ìŠ¤ IP
+	 * @param id ì•„ì´ë””
+	 * @param pw ë¹„ë²ˆ
+	 * @param dbname ë°ì´í„°ë² ì´ìŠ¤ëª…
 	 */
 	public Connection getConnection(String dbms) {
 		Connection con = null;
@@ -53,7 +53,7 @@ public class DBManager {
 		return con;
 	}
 
-	// ¸ğµÎ ´İ´Â´Ù.
+	// ëª¨ë‘ ë‹«ëŠ”ë‹¤.
 	public void setClose() {
 		setCloseConnectionMSSQL();
 	}
@@ -75,12 +75,12 @@ public class DBManager {
 	}
 
 	/** 
-	 * MS-SQL ¿¬°á
-	 * @param ip µ¥ÀÌÅÍº£ÀÌ½º IP
-	 * @param port µ¥ÀÌÅÍº£ÀÌ½º Æ÷Æ®
-	 * @param id ¾ÆÀÌµğ
-	 * @param pw ºñ¹ø
-	 * @param dbname µ¥ÀÌÅÍº£ÀÌ½º¸í
+	 * MS-SQL ì—°ê²°
+	 * @param ip ë°ì´í„°ë² ì´ìŠ¤ IP
+	 * @param port ë°ì´í„°ë² ì´ìŠ¤ í¬íŠ¸
+	 * @param id ì•„ì´ë””
+	 * @param pw ë¹„ë²ˆ
+	 * @param dbname ë°ì´í„°ë² ì´ìŠ¤ëª…
 	 */
 	public void setConnectionMSSQL(String ip, String  port, String id, String pw,String dbname) {
 		try {
@@ -102,12 +102,12 @@ public class DBManager {
 	}
 	
 	/** 
-	 * MYSQL ¿¬°á
-	 * @param ip µ¥ÀÌÅÍº£ÀÌ½º IP
-	 * @param port µ¥ÀÌÅÍº£ÀÌ½º Æ÷Æ®
-	 * @param id ¾ÆÀÌµğ
-	 * @param pw ºñ¹ø
-	 * @param dbname µ¥ÀÌÅÍº£ÀÌ½º¸í
+	 * MYSQL ì—°ê²°
+	 * @param ip ë°ì´í„°ë² ì´ìŠ¤ IP
+	 * @param port ë°ì´í„°ë² ì´ìŠ¤ í¬íŠ¸
+	 * @param id ì•„ì´ë””
+	 * @param pw ë¹„ë²ˆ
+	 * @param dbname ë°ì´í„°ë² ì´ìŠ¤ëª…
 	 */
 	public void setConnectionMYSQL(String ip, String  port, String id, String pw, String dbname) {
 		try {
@@ -117,7 +117,7 @@ public class DBManager {
 			String drivername = "com.mysql.jdbc.Driver";
 			Class.forName(drivername);
 			String url = "jdbc:mysql://" + ip + ":" + port + "/" + dbname;
-			LOGGER.info("[mysql ¿¬°á] " + ip + ":" + port + " DB Connectionn ½Ãµµ id:" + id + " pass:" + pw);
+			LOGGER.info("[mysql ì—°ê²°] " + ip + ":" + port + " DB Connectionn ì‹œë„ id:" + id + " pass:" + pw);
 			con_mysql = DriverManager.getConnection(url, id, pw);
 			OKMYSQL = true;
 		} catch (Exception e) {
@@ -128,12 +128,12 @@ public class DBManager {
 	}
     
     /** 
-	 * ORACLE ¿¬°á
-	 * @param ip µ¥ÀÌÅÍº£ÀÌ½º IP
-	 * @param port µ¥ÀÌÅÍº£ÀÌ½º Æ÷Æ®
-	 * @param id ¾ÆÀÌµğ
-	 * @param pw ºñ¹ø
-	 * @param dbname µ¥ÀÌÅÍº£ÀÌ½º¸í
+	 * ORACLE ì—°ê²°
+	 * @param ip ë°ì´í„°ë² ì´ìŠ¤ IP
+	 * @param port ë°ì´í„°ë² ì´ìŠ¤ í¬íŠ¸
+	 * @param id ì•„ì´ë””
+	 * @param pw ë¹„ë²ˆ
+	 * @param dbname ë°ì´í„°ë² ì´ìŠ¤ëª…
 	 */
 	public void setConnectionOracle(String ip, String  port, String id, String pw, String dbname) {
 		try {
@@ -142,7 +142,7 @@ public class DBManager {
 			String drivername = "oracle.jdbc.OracleDriver";
 			Class.forName(drivername);
 			String url = "jdbc:oracle:thin:@" + ip + ":" + port + ":" + dbname;
-			LOGGER.info("[DB¿¬°á] " + ip + " DB Connectionn ½Ãµµ id:" + id + " pass:" + pw);
+			LOGGER.info("[DBì—°ê²°] " + ip + " DB Connectionn ì‹œë„ id:" + id + " pass:" + pw);
 			con_oracle = DriverManager.getConnection(url, id, pw);
 			OKORACLE = true;
 		} catch (Exception e) {
@@ -153,7 +153,7 @@ public class DBManager {
 	}
 
 	/**
-	 MSSQL Statement ¸®ÅÏ
+	 MSSQL Statement ë¦¬í„´
 	 */
 	@SuppressWarnings("finally")
 	public Statement getStatementMssql() {
@@ -189,14 +189,14 @@ public class DBManager {
 	}
 
 	/**
-	 * MSSQL connection ¸®ÅÏ
+	 * MSSQL connection ë¦¬í„´
 	 */
 	public Connection getConnectionMSSQL() {
 		return con_mssql;
 	}
 
 	/**
-	 * MYSQL connection ¸®ÅÏ
+	 * MYSQL connection ë¦¬í„´
 	 * 
 	 * @return
 	 */
@@ -205,7 +205,7 @@ public class DBManager {
 	}
 
 	/**
-	 * ORACLE connection ¸®ÅÏ
+	 * ORACLE connection ë¦¬í„´
 	 * 
 	 * @return
 	 */
@@ -214,7 +214,7 @@ public class DBManager {
     }
     
 	/**
-	 * Connection ¿ÏÀü ÃÊ±âÈ­
+	 * Connection ì™„ì „ ì´ˆê¸°í™”
 	 */
 	public void destroyConnection(Connection con) {
 		try {
@@ -230,7 +230,7 @@ public class DBManager {
 	}
 
 	/**
-	 * Connection ¿ÏÀü ÃÊ±âÈ­
+	 * Connection ì™„ì „ ì´ˆê¸°í™”
 	 * 
 	 * @param st
 	 */
@@ -248,7 +248,7 @@ public class DBManager {
 	}
 
 	/**
-	 * Connection ¿ÏÀü ÃÊ±âÈ­
+	 * Connection ì™„ì „ ì´ˆê¸°í™”
 	 */
 	public void destroyResultSet(ResultSet rs) {
 		try {

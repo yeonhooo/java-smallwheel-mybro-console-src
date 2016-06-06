@@ -4,7 +4,7 @@ import java.io.File;
 import org.apache.log4j.Logger;
 
 /**
- * Àü¿ª È¯°æÁ¤º¸
+ * ì „ì—­ í™˜ê²½ì •ë³´
  * 
  * @author yeonhooo
  *
@@ -13,46 +13,46 @@ public class ENV {
 
 	private final static Logger LOGGER = Logger.getLogger(ENV.class);
 	
-	public static final String VER = "DAOMaker 20110822.0940"; // ¼­¹ö ¹öÀü
+	public static final String VER = "DAOMaker 20110822.0940"; // ì„œë²„ ë²„ì „
 
 	/** Type of Coupling */
 	public static String couplingType = "MIDDLE";
 	/** mapper type */
 	public static String mapperType = Constants.Mapper.MYBATIS;
 	/**
-	 * ¿£Æ¼Æ¼¸í¿¡¼­ Á¦¿ÜÇÒ ¹®ÀÚ¿­
+	 * ì—”í‹°í‹°ëª…ì—ì„œ ì œì™¸í•  ë¬¸ìì—´
 	 * <pre>
-	 * e.g. Å×ÀÌºí¸íÀÌ NQR_BILL_DETAIL ÀÇ °æ¿ì, ±âº» ¿£Æ¼Æ¼¸íÀº NqrBillDetail ÀÌ µÈ´Ù
-	 * ÀÌ ¶§ PREFIX_EXCEPT À» "NQR_" ·Î ¼³Á¤ÇÒ °æ¿ì, ¿£Æ¼Æ¼¸íÀº NqrBillDetail °¡ ¾Æ´Ñ BillDetail°¡ µÈ´Ù.
+	 * e.g. í…Œì´ë¸”ëª…ì´ NQR_BILL_DETAIL ì˜ ê²½ìš°, ê¸°ë³¸ ì—”í‹°í‹°ëª…ì€ NqrBillDetail ì´ ëœë‹¤
+	 * ì´ ë•Œ PREFIX_EXCEPT ì„ "NQR_" ë¡œ ì„¤ì •í•  ê²½ìš°, ì—”í‹°í‹°ëª…ì€ NqrBillDetail ê°€ ì•„ë‹Œ BillDetailê°€ ëœë‹¤.
 	 * </pre>
 	 */
 	public static String prefixExcept;
-	/** µ¥ÀÌÅÍº£ÀÌ½º Á¾·ù */
+	/** ë°ì´í„°ë² ì´ìŠ¤ ì¢…ë¥˜ */
 	public static String dbms;
-	/** µ¥ÀÌÅÍº£ÀÌ½º ¾ÆÀÌÇÇ */
+	/** ë°ì´í„°ë² ì´ìŠ¤ ì•„ì´í”¼ */
 	public static String serverIp;
-	/** µ¥ÀÌÅÍº£ÀÌ½º Æ÷Æ® */
+	/** ë°ì´í„°ë² ì´ìŠ¤ í¬íŠ¸ */
 	public static String port;
-	/** µ¥ÀÌÅÍº£ÀÌ½º ¾ÆÀÌµğ */
+	/** ë°ì´í„°ë² ì´ìŠ¤ ì•„ì´ë”” */
 	public static String userId;
-	/** µ¥ÀÌÅÍº£ÀÌ½º ÆĞ½º¿öµå */
+	/** ë°ì´í„°ë² ì´ìŠ¤ íŒ¨ìŠ¤ì›Œë“œ */
 	public static String userPass;
-	/** µ¥ÀÌÅÍº£ÀÌ½º¸í */
+	/** ë°ì´í„°ë² ì´ìŠ¤ëª… */
 	public static String dbName;
-	/** Å×ÀÌºí¸í ¸®½ºÆ® */
+	/** í…Œì´ë¸”ëª… ë¦¬ìŠ¤íŠ¸ */
 	public static String tableNameList; 
 	/** 
-	 * ÀÚÆÄ Å¬·¡½º ÆÄÀÏ¸í Á¢¹Ì¾î
+	 * ìíŒŒ í´ë˜ìŠ¤ íŒŒì¼ëª… ì ‘ë¯¸ì–´
 	 * <pre>
-	 * e.g. Å×ÀÌºí¸íÀÌ USER_INFO ÀÎ °æ¿ì, ±âº» ÀÚ¹ÙÆÄÀÏ¸íÀº UserInfo.java°¡ µÈ´Ù.
-	 * ÀÌ ¶§ classNameSuffix¸¦ "Dto"·Î ¼³Á¤ÇÒ °æ¿ì ÀÚ¹ÙÆÄÀÏ¸íÀº UserInfoDto.java°¡ µÇ¸ç,
-	 * classNameSuffix¸¦ "Vo"·Î ¼³Á¤ÇÒ °æ¿ì ÀÚ¹ÙÆÄÀÏ¸íÀº UserInfoVo.java°¡ µÈ´Ù.
+	 * e.g. í…Œì´ë¸”ëª…ì´ USER_INFO ì¸ ê²½ìš°, ê¸°ë³¸ ìë°”íŒŒì¼ëª…ì€ UserInfo.javaê°€ ëœë‹¤.
+	 * ì´ ë•Œ classNameSuffixë¥¼ "Dto"ë¡œ ì„¤ì •í•  ê²½ìš° ìë°”íŒŒì¼ëª…ì€ UserInfoDto.javaê°€ ë˜ë©°,
+	 * classNameSuffixë¥¼ "Vo"ë¡œ ì„¤ì •í•  ê²½ìš° ìë°”íŒŒì¼ëª…ì€ UserInfoVo.javaê°€ ëœë‹¤.
 	 * </pre>
 	 */
 	public static String classNameSuffix;
 
 
-	/** º¯¼ö »ı¼º ÈÄ, ÇÁ·ÎÆÛÆ¼ ÆÄÀÏ·ÎºÎÅÍ ¼Ó¼ºÀ» ÀĞ¾î °ªÀ» º¯¼ö¿¡ ÀúÀåÇÑ´Ù(µ¥ÀÌÅÍº£ÀÌ½º °ü·Ã). */
+	/** ë³€ìˆ˜ ìƒì„± í›„, í”„ë¡œí¼í‹° íŒŒì¼ë¡œë¶€í„° ì†ì„±ì„ ì½ì–´ ê°’ì„ ë³€ìˆ˜ì— ì €ì¥í•œë‹¤(ë°ì´í„°ë² ì´ìŠ¤ ê´€ë ¨). */
 	public static void init() {
 
 		if (checkNull("COUPLING_TYPE"))
@@ -80,7 +80,7 @@ public class ENV {
 
 		File dir = new File(Constants.Path.DTO_CLASS_DES_DIR);
 		if (!dir.isDirectory()) {
-			// µğ·ºÅä¸®°¡ Á¸ÀçÇÏÁö ¾Ê´Â´Ù¸é µğ·ºÅä¸® »ı¼º
+			// ë””ë ‰í† ë¦¬ê°€ ì¡´ì¬í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´ ë””ë ‰í† ë¦¬ ìƒì„±
 			dir.mkdirs();
 		}
 		dir = new File(Constants.Path.SQL_MAPPER_DES_DIR);

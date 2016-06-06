@@ -1,7 +1,7 @@
 package smallwheel.mybro.common;
 
 /**
- * »ó¼ö °ü¸®
+ * ìƒìˆ˜ ê´€ë¦¬
  * 
  * @author yeonhooo
  */
@@ -83,10 +83,10 @@ public class Constants {
 		public static final String LOG_DIR = "log/";
 		public static final String CONF_DIR = "conf/";
 		
-		/** java DTO class ÆÄÀÏ À§Ä¡ */
+		/** java DTO class íŒŒì¼ ìœ„ì¹˜ */
 		public static final String DTO_CLASS_DES_DIR = "export/dto/";
 		
-		/** sqlmap ÆÄÀÏ À§Ä¡ */
+		/** sqlmap íŒŒì¼ ìœ„ì¹˜ */
 		public static final String SQL_MAPPER_DES_DIR = "export/mapper/";
 		public static final String FILENAME_EXTENSION_JAVA = ".java";
 		public static final String FILENAME_EXTENSION_XML = ".xml";

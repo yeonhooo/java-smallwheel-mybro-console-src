@@ -9,7 +9,7 @@ import java.util.ResourceBundle;
 import org.apache.log4j.Logger;
 
 /**
- * ÇÁ·ÎÆÛÆ¼ ÆÄÀÏ °ü¸® 
+ * í”„ë¡œí¼í‹° íŒŒì¼ ê´€ë¦¬ 
  * 
  * @author yeonhooo
  *

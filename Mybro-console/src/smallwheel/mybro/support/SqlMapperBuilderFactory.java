@@ -12,14 +12,14 @@ import smallwheel.mybro.support.builder.SqlMapperBuilderForMybatis;
 public class SqlMapperBuilderFactory {
 
 	/**
-	 * mapperType¿¡ ÇØ´çÇÏ´Â SqlMapperBuilder¸¦ »ı¼ºÇÑ´Ù.
+	 * mapperTypeì— í•´ë‹¹í•˜ëŠ” SqlMapperBuilderë¥¼ ìƒì„±í•œë‹¤.
 	 * 
 	 * @param mapperType
-	 * @return mapperTypeº° SqlMapperBuilder
+	 * @return mapperTypeë³„ SqlMapperBuilder
 	 */
 	public SqlMapperBuilder createSqlMapperBuilder(String mapperType) {
 
-		// ±âº» ¸ÊÆÛ´Â MyBatis·Î ¼³Á¤ÇÑ´Ù
+		// ê¸°ë³¸ ë§µí¼ëŠ” MyBatisë¡œ ì„¤ì •í•œë‹¤
 		SqlMapperBuilder builder = new SqlMapperBuilderForMybatis();
 
 		if (mapperType.equalsIgnoreCase(Constants.Mapper.IBATIS)) {

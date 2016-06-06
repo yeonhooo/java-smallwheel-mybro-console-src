@@ -33,16 +33,16 @@ public class DtoClassBuilder implements Builder {
 			try {
 				writer = new FileWriter(Constants.Path.DTO_CLASS_DES_DIR + className + ".java");
 				
-				// Class ÀÛ¼º ½ÃÀÛ
+				// Class ìž‘ì„± ì‹œìž‘
 				writer.write("public class " + className + " {");
 				
-				// Property ÀÛ¼º
+				// Property ìž‘ì„±
 				writer.write("\n\t" + "/* properties */" + "\n");
 				for (PropertyInfo property : classFile.getPropertyList()) {
 					writer.write("\t" + "private " + property.getType() + " " + property.getName() + ";" + "\n");
 				}
 				
-				// Getter, Setter ÀÛ¼º
+				// Getter, Setter ìž‘ì„±
 				writer.write("\n\t" + "/* getter, setter */" + "\n");
 				for (PropertyInfo property : classFile.getPropertyList()) {
 					
@@ -73,7 +73,7 @@ public class DtoClassBuilder implements Builder {
 				}
 				writer.write(" + \"]\";\n\t}");
 				
-				// Class ´Ý±â
+				// Class ë‹«ê¸°
 				writer.write("\n}");
 				writer.close();
 			} catch(IOException e){

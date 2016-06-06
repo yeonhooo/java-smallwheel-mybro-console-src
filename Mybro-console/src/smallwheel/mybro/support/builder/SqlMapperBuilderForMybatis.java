@@ -24,7 +24,7 @@ import smallwheel.mybro.common.TableInfo;
 import smallwheel.mybro.common.SharedInfo;
 
 /**
- * Mybatis¿ë SqlMapperBuilder Å¬·¡½º
+ * Mybatisìš© SqlMapperBuilder í´ë˜ìŠ¤
  * 
  * @author yeonhooo@gmail.com
  */
@@ -34,7 +34,7 @@ public class SqlMapperBuilderForMybatis extends SqlMapperBuilder {
 	private final SharedInfo sharedInfo = SharedInfo.getInstance();
 	
 	/** 
-	 * SqlMap.xml ÆÄÀÏÀ» ¸¸µç´Ù. 
+	 * SqlMap.xml íŒŒì¼ì„ ë§Œë“ ë‹¤. 
 	 * @param table list 
 	 * */
 	@Override
@@ -67,21 +67,21 @@ public class SqlMapperBuilderForMybatis extends SqlMapperBuilder {
 			final Element delete = new Element("delete");
 			String sqlMapId;
 			
-			// root ³ëµå ¼³Á¤
+			// root ë…¸ë“œ ì„¤ì •
 			root.setAttribute(makeAttribute("namespace", table.getEntityName()));
 			
-			// typeAlias ³ëµå ¼³Á¤
+			// typeAlias ë…¸ë“œ ì„¤ì •
 	//		String typeAliasText = "class" + classFile.getClassName();
 			final String typeAliasText = classFile.getName();
 			typeAlias.setAttribute(makeAttribute("alias", typeAliasText));
 			typeAlias.setAttribute(makeAttribute("type", classFile.getName()));		
 			
-			// resultMap ³ëµå ¼³Á¤
+			// resultMap ë…¸ë“œ ì„¤ì •
 			final String resultMapText = "ret" + classFile.getName();
 			resultMap.setAttribute(makeAttribute("type", typeAliasText));
 			resultMap.setAttribute(makeAttribute("id", resultMapText));		
 			
-			// result ³ëµå ¼³Á¤
+			// result ë…¸ë“œ ì„¤ì •
 			for (int j = 0; j < classFile.getPropertyList().size(); j++) {
 				Element result = new Element("result");
 				result.setAttribute(makeAttribute("property", classFile.getPropertyList().get(j).getName()));
@@ -91,28 +91,28 @@ public class SqlMapperBuilderForMybatis extends SqlMapperBuilder {
 				resultMap.addContent(result);
 			}
 			
-			// dynamicWhere sql map »ı¼º
+			// dynamicWhere sql map ìƒì„±
 			sql.setAttribute(makeAttribute("id", "dynamicWhere"));
 			sql.addContent(makeDynamicWhere(table.getColumnInfoList(), classFile.getPropertyList()));
 			
-			// insert sql map »ı¼º
+			// insert sql map ìƒì„±
 			sqlMapId = "insert" + entityName;
 			mapperInterfaceFile.getSqlMapInfoList().add(new SqlMapInfo(sqlMapId, "int"));
 			insert.setAttribute(makeAttribute("id", sqlMapId));
 			insert.setAttribute(makeAttribute("parameterType", typeAliasText));
 			insert.addContent(makeInsertSqlMap(table, classFile));
 			
-			// select list sql map »ı¼º
+			// select list sql map ìƒì„±
 			sqlMapId = "select" + entityName + "List";
 			mapperInterfaceFile.getSqlMapInfoList().add(new SqlMapInfo(sqlMapId, "List<" + classFile.getName() + ">"));
 			select.setAttribute(makeAttribute("id", sqlMapId));
 			select.setAttribute(makeAttribute("parameterType", typeAliasText));
 			select.setAttribute(makeAttribute("resultType", typeAliasText));
 			select.addContent(makeSelectSqlMap(table, classFile));
-			// µ¿Àû WHEREÀı »ı¼º
+			// ë™ì  WHEREì ˆ ìƒì„±
 			select.addContent(addDynamicWhere(tableName));
 			
-			// select sql map »ı¼º
+			// select sql map ìƒì„±
 			sqlMapId = "select" + entityName;
 			mapperInterfaceFile.getSqlMapInfoList().add(new SqlMapInfo(sqlMapId, classFile.getName()));
 			selectOne.setAttribute(makeAttribute("id", sqlMapId));
@@ -121,7 +121,7 @@ public class SqlMapperBuilderForMybatis extends SqlMapperBuilder {
 			selectOne.addContent(makeSelectSqlMap(table, classFile));
 			selectOne.addContent(makePrimaryKeyWhere(table.getPrimaryKeyColumnNameList(), classFile.getPropertyPrimaryKeyNameList()));
 			
-			// update sql map »ı¼º
+			// update sql map ìƒì„±
 			sqlMapId = "update" + entityName;
 			mapperInterfaceFile.getSqlMapInfoList().add(new SqlMapInfo(sqlMapId, "int"));
 			update.setAttribute(makeAttribute("id", sqlMapId));
@@ -130,7 +130,7 @@ public class SqlMapperBuilderForMybatis extends SqlMapperBuilder {
 			update.addContent(makeDynamicUpdateSqlMap(table, classFile));
 			update.addContent(makePrimaryKeyWhere(table.getPrimaryKeyColumnNameList(), classFile.getPropertyPrimaryKeyNameList()));
 			
-			// delete sql map »ı¼º
+			// delete sql map ìƒì„±
 			sqlMapId = "delete" + entityName;
 			mapperInterfaceFile.getSqlMapInfoList().add(new SqlMapInfo(sqlMapId, "int"));
 			delete.setAttribute(makeAttribute("id", sqlMapId));
@@ -138,7 +138,7 @@ public class SqlMapperBuilderForMybatis extends SqlMapperBuilder {
 			delete.addContent(makeDeleteSqlMap(tableName));
 			delete.addContent(makePrimaryKeyWhere(table.getPrimaryKeyColumnNameList(), classFile.getPropertyPrimaryKeyNameList()));
 			
-			// root ¿¡ Ãß°¡
+			// root ì— ì¶”ê°€
 			root.addContent(new Comment(" Use type aliases to avoid typing the full class name every time. "));
 			root.addContent(typeAlias);
 			root.addContent(resultMap);
@@ -167,7 +167,7 @@ public class SqlMapperBuilderForMybatis extends SqlMapperBuilder {
 			root.addContent(new Comment(" Delete " + tableName + " "));
 			root.addContent(delete);
 			
-			/* DTD ÁöÁ¤ ÈÄ, ÆÄÀÏ·Î ÀúÀå
+			/* DTD ì§€ì • í›„, íŒŒì¼ë¡œ ì €ì¥
 			 * iBatis
 			 * 	<!DOCTYPE sqlMap      
 			 * 		PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"	
@@ -181,24 +181,24 @@ public class SqlMapperBuilderForMybatis extends SqlMapperBuilder {
 			DocType docType = new DocType(Constants.Mapper.MYBATIS_ELEMENT_NAME, Constants.Mapper.MYBATIS_PUBLIC_ID, Constants.Mapper.MYBATIS_SYSTEM_ID);
 			Document doc = new Document(root, docType);
 			try {
-				// ÀúÀåÇÒ XML ÆÄÀÏ »ı¼ºÇÑ´Ù.
+				// ì €ì¥í•  XML íŒŒì¼ ìƒì„±í•œë‹¤.
 				FileOutputStream fos = new FileOutputStream(Constants.Path.SQL_MAPPER_DES_DIR + entityName + "Mapper.xml");
 				XMLOutputter serializer = new XMLOutputter();
 	//			XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 				
-				// ±âº» Æ÷¸Ë ÇüÅÂ¸¦ ºÒ·¯¿Í ¼öÁ¤ÇÑ´Ù.
+				// ê¸°ë³¸ í¬ë§· í˜•íƒœë¥¼ ë¶ˆëŸ¬ì™€ ìˆ˜ì •í•œë‹¤.
 				Format fm = serializer.getFormat();
-				// ÀÎÄÚµù º¯°æ
+				// ì¸ì½”ë”© ë³€ê²½
 				fm.setEncoding("UTF-8");
-				// ºÎ¸ğ, ÀÚ½Ä ÅÂ±×¸¦ ±¸º°ÇÏ±â À§ÇÑ ÅÇ ¹üÀ§¸¦ Á¤ÇÑ´Ù.
+				// ë¶€ëª¨, ìì‹ íƒœê·¸ë¥¼ êµ¬ë³„í•˜ê¸° ìœ„í•œ íƒ­ ë²”ìœ„ë¥¼ ì •í•œë‹¤.
 				fm.setIndent("\t");
-				// ÅÂ±×°£ ÁÙ¹Ù²ŞÀ» ÁöÁ¤ÇÑ´Ù.
+				// íƒœê·¸ê°„ ì¤„ë°”ê¿ˆì„ ì§€ì •í•œë‹¤.
 				fm.setLineSeparator("\n");
 				
-				// ¼³Á¤ÇÑ XML ÆÄÀÏÀÇ Æ÷¸ËÀ» set ÇÑ´Ù.
+				// ì„¤ì •í•œ XML íŒŒì¼ì˜ í¬ë§·ì„ set í•œë‹¤.
 				serializer.setFormat(fm);
 				
-				// doc ÀÇ ³»¿ëÀ» fos ÇÏ¿© ÆÄÀÏÀ» »ı¼ºÇÑ´Ù.
+				// doc ì˜ ë‚´ìš©ì„ fos í•˜ì—¬ íŒŒì¼ì„ ìƒì„±í•œë‹¤.
 				serializer.output(doc, fos);
 				
 				fos.flush();
@@ -216,7 +216,7 @@ public class SqlMapperBuilderForMybatis extends SqlMapperBuilder {
 	}
 
 	/**
-	 * µ¿Àû WHEREÀı »ı¼º
+	 * ë™ì  WHEREì ˆ ìƒì„±
 	 * @param columnList 
 	 * @param propertyList 
 	 * @param tableName
@@ -226,7 +226,7 @@ public class SqlMapperBuilderForMybatis extends SqlMapperBuilder {
 		Element dynamic = new Element("where");
 		Element ifTest = null;
 		
-		/* if ³ëµå ¼³Á¤
+		/* if ë…¸ë“œ ì„¤ì •
 		 * <if test = 'propertyName != null and propertyName != "" >
 		 */
 		for (int i = 0; i < columnList.size(); i++) {
@@ -248,7 +248,7 @@ public class SqlMapperBuilderForMybatis extends SqlMapperBuilder {
 	}
 	
 	/**
-	 * PK Á¶°ÇÀ¸·Î ÀÌ·ïÁø WHEREÀı »ı¼º
+	 * PK ì¡°ê±´ìœ¼ë¡œ ì´ë¤„ì§„ WHEREì ˆ ìƒì„±
 	 * @param primaryKeyColumnNameList
 	 * @param propertyPrimaryKeyNameList 
 	 * @return
@@ -269,7 +269,7 @@ public class SqlMapperBuilderForMybatis extends SqlMapperBuilder {
 	
 
 	/**
-	 * »ı¼ºÇÑ WHEREÀı Ãß°¡
+	 * ìƒì„±í•œ WHEREì ˆ ì¶”ê°€
 	 * @param tableName
 	 * @return
 	 */
@@ -279,7 +279,7 @@ public class SqlMapperBuilderForMybatis extends SqlMapperBuilder {
 		return include;
 	}
 	
-	/** insert Äõ¸®¹® ÀÛ¼º */
+	/** insert ì¿¼ë¦¬ë¬¸ ì‘ì„± */
 	private String makeInsertSqlMap(TableInfo table, ClassFileInfo classFile) {
 		String sql = "\n\t\tINSERT INTO " + table.getName() + " ( ";
 		for (int i = 0; i < classFile.getPropertyList().size(); i++) {
@@ -301,7 +301,7 @@ public class SqlMapperBuilderForMybatis extends SqlMapperBuilder {
 		return sql;
 	}
 	
-	/** select Äõ¸®¹® ÀÛ¼º */
+	/** select ì¿¼ë¦¬ë¬¸ ì‘ì„± */
 	private String makeSelectSqlMap(TableInfo table, ClassFileInfo classFile) {
 		String sql = "\n\t\tSELECT ";
 		for (int i = 0; i < classFile.getPropertyList().size(); i++) {
@@ -315,7 +315,7 @@ public class SqlMapperBuilderForMybatis extends SqlMapperBuilder {
 		return sql;
 	}
 	
-	/** update Äõ¸®¹® ÀÛ¼º */
+	/** update ì¿¼ë¦¬ë¬¸ ì‘ì„± */
 	@SuppressWarnings("unused")
 	private String makeUpdateSqlMap(TableInfo table, ClassFileInfo classFile) {
 		String sql = "\n\t\tUPDATE " + table.getName() + " \n\t\tSET";
@@ -331,7 +331,7 @@ public class SqlMapperBuilderForMybatis extends SqlMapperBuilder {
 	}
 	
 	/**
-	 * update Äõ¸®¹® Çì´õ
+	 * update ì¿¼ë¦¬ë¬¸ í—¤ë”
 	 * @param tableName
 	 * @return
 	 */
@@ -341,10 +341,10 @@ public class SqlMapperBuilderForMybatis extends SqlMapperBuilder {
 	}
 	
 	/**
-	 * µ¿Àû update Äõ¸®¹® ÀÛ¼º 
-	 * ¿¹) <isNotEmpty property="applyName">,APPLY_NAME = #applyName# </isNotEmpty>
+	 * ë™ì  update ì¿¼ë¦¬ë¬¸ ì‘ì„± 
+	 * ì˜ˆ) <isNotEmpty property="applyName">,APPLY_NAME = #applyName# </isNotEmpty>
 	 * 
-	 * prepend ¸¦ »ç¿ëÇÏÁö ¾Ê´Â °ÍÀ¸·Î ¼öÁ¤
+	 * prepend ë¥¼ ì‚¬ìš©í•˜ì§€ ì•ŠëŠ” ê²ƒìœ¼ë¡œ ìˆ˜ì •
 	 * @param tableName
 	 * @return
 	 */
@@ -381,14 +381,14 @@ public class SqlMapperBuilderForMybatis extends SqlMapperBuilder {
 		return dynamic;
 	}
 	
-	/** delete Äõ¸®¹® ÀÛ¼º */
+	/** delete ì¿¼ë¦¬ë¬¸ ì‘ì„± */
 	private String makeDeleteSqlMap(String tableName) {
 		String sql = "\n\t\tDELETE FROM " + tableName + "\t\t";
 		return sql;
 	}
 	
 	/**
-	 * Attribute ¸¦ »ı¼ºÇÏ¿© ¹İÈ¯ÇÑ´Ù.
+	 * Attribute ë¥¼ ìƒì„±í•˜ì—¬ ë°˜í™˜í•œë‹¤.
 	 * 
 	 * @param attributeName
 	 * @param attributeValue

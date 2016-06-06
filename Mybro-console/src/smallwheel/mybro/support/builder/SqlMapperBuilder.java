@@ -6,7 +6,7 @@ import org.jdom.Document;
 
 /**
  * 
- * SqlMapperBuilder Ãß»óÅ¬·¡½º
+ * SqlMapperBuilder ì¶”ìƒí´ë˜ìŠ¤
  * 
  * @author yeonhooo
  *

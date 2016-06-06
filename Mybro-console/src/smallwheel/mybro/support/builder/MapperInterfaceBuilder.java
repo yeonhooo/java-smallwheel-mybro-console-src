@@ -30,17 +30,17 @@ public class MapperInterfaceBuilder implements Builder {
 				mapperInterfaceFile = sharedInfo.getMapperInterfaceInfoList().get(i);
 				classFile = sharedInfo.getClassFileInfoList().get(i);
 				
-				// File Name À» ¸¸µç´Ù.
+				// File Name ì„ ë§Œë“ ë‹¤.
 				String interfaceName = makeInterfaceName(sharedInfo.getTableInfoList().get(i).getEntityName());
 				FileWriter writer = new FileWriter(Constants.Path.SQL_MAPPER_DES_DIR + interfaceName + Constants.Path.FILENAME_EXTENSION_JAVA);
 	
-				// interface ÀÛ¼º ½ÃÀÛ
+				// interface ì‘ì„± ì‹œì‘
 				writer.write("import java.util.List;\n");
 				writer.write("import org.springframework.stereotype.Repository;\n");
 				writer.write("\n@Repository\n");
 				writer.write("public interface " + interfaceName + " {\n");
 	
-				// method ÀÛ¼º
+				// method ì‘ì„±
 				for (int j = 0; j < mapperInterfaceFile.getSqlMapInfoList().size(); j++) {
 					writer.write("\n\t" + "public " 
 							+ mapperInterfaceFile.getSqlMapInfoList().get(j).getType()
@@ -48,7 +48,7 @@ public class MapperInterfaceBuilder implements Builder {
 							+ "(" + classFile.getName() + " " + convertParameterName(classFile.getName()) + ");\n");
 				}
 	
-				// interface ´İ±â
+				// interface ë‹«ê¸°
 				writer.write("\n}");
 				writer.close();
 			}
@@ -58,14 +58,14 @@ public class MapperInterfaceBuilder implements Builder {
 		}
 	}
 	
-	/** Å¬·¡½º¸íÀ» ¸¸µç´Ù. */
+	/** í´ë˜ìŠ¤ëª…ì„ ë§Œë“ ë‹¤. */
 	private String makeInterfaceName(String entityName) {
 		return entityName + fileNameSuffix;
 	}
 	
-	/** ÆÄ¶ó¹ÌÅÍ¸íÀ» ¸¸µç´Ù. */
+	/** íŒŒë¼ë¯¸í„°ëª…ì„ ë§Œë“ ë‹¤. */
 	private String convertParameterName(String entityName) {
-		// Ã¹ ±ÛÀÚ¸¦ ¼Ò¹®ÀÚ·Î ½ÃÀÛÇÑ´Ù.
+		// ì²« ê¸€ìë¥¼ ì†Œë¬¸ìë¡œ ì‹œì‘í•œë‹¤.
 		return entityName.substring(0, 1).toLowerCase() + entityName.substring(1);
 	}
 	
