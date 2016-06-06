@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.jdom.Attribute;
 import org.jdom.Comment;
@@ -284,9 +285,11 @@ public class SqlMapperBuilderForMybatis extends SqlMapperBuilder {
 		String sql = "\n\t\tINSERT INTO " + table.getName() + " ( ";
 		for (int i = 0; i < classFile.getPropertyList().size(); i++) {
 			if (i == 0) {
-				sql = sql + "\n\t\t\t" + table.getColumnInfoList().get(i).getName();
+				sql = sql + "\n\t\t\t" + table.getColumnInfoList().get(i).getName()
+						+ "\t\t/*"+ table.getColumnInfoList().get(i).getComment() +"*/";
 			} else {
-				sql = sql + "\n\t\t\t" + "," + table.getColumnInfoList().get(i).getName();
+				sql = sql + "\n\t\t\t" + "," + table.getColumnInfoList().get(i).getName()
+						+ "\t\t/*"+ table.getColumnInfoList().get(i).getComment() +"*/";
 			}
 		}
 		sql += "\n\t\t) VALUES (";
@@ -306,9 +309,13 @@ public class SqlMapperBuilderForMybatis extends SqlMapperBuilder {
 		String sql = "\n\t\tSELECT ";
 		for (int i = 0; i < classFile.getPropertyList().size(); i++) {
 			if (i == 0) {
-				sql = sql + "\n\t\t\t" + table.getColumnInfoList().get(i).getName() + "\tAS " + classFile.getPropertyList().get(i).getName();
+				sql = sql + "\n\t\t\t" + table.getColumnInfoList().get(i).getName()
+						+ "\tAS " + classFile.getPropertyList().get(i).getName()
+						+ "\t\t/*" + table.getColumnInfoList().get(i).getComment() + "*/";
 			} else {
-				sql = sql + "\n\t\t\t" + "," + table.getColumnInfoList().get(i).getName() + "\tAS " + classFile.getPropertyList().get(i).getName();
+				sql = sql + "\n\t\t\t" + "," + table.getColumnInfoList().get(i).getName()
+						+ "\tAS " + classFile.getPropertyList().get(i).getName()
+						+ "\t\t/*" + table.getColumnInfoList().get(i).getComment()+ "*/";;
 			}
 		}
 		sql = sql + "\n\t\tFROM " + table.getName() + "\t\t";

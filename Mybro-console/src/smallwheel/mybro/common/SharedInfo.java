@@ -5,9 +5,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 import org.apache.log4j.Logger;
 
@@ -34,11 +32,13 @@ public class SharedInfo {
 	private final String tables = ContextMaster.getString("TABLES");
 
 	// singleton
-	private SharedInfo() {
+	protected SharedInfo() {
 	}
 
-	public static SharedInfo getInstance() {
+	public synchronized static SharedInfo getInstance() {
+
 		return sharedInfo;
+
 	}
 
 	public void load() {
@@ -70,11 +70,19 @@ public class SharedInfo {
 					tableInfo.getColumnInfoList().add(new ColumnInfo(rm.getColumnName(i), rm.getColumnTypeName(i)));
 				}
 
+				// MySQL Comments
+				if ( "MYSQL".equals(ENV.dbms) ) {
+					Map<String, String> map = getComments(con, tableInfo.getName());
+					for ( ColumnInfo columnInfo : tableInfo.getColumnInfoList() ) {
+						columnInfo.setComment( map.get(columnInfo.getName()) );
+					}
+				}
+
 				// Table의 PK 정보를 가져온다.
 				ResultSet keys = databaseMetaData.getPrimaryKeys(null, null, tableInfo.getName());
 				while (keys.next()) {
 					tableInfo.getPrimaryKeyColumnNameList().add(keys.getString("COLUMN_NAME"));
-					classInfo.getPropertyPrimaryKeyNameList().add(makePropertyName(keys.getString("COLUMN_NAME")));
+					classInfo.getPropertyPrimaryKeyNameList().add(this.makePropertyName(keys.getString("COLUMN_NAME")));
 				}
 
 				logger.info("[Table Name: " + tableInfo.getName() + " / Column Count: " + rm.getColumnCount() + "]");
@@ -84,15 +92,15 @@ public class SharedInfo {
 				}
 
 				// EntityName 을 만든다
-				tableInfo.setEntityName(makeEntityName(tableInfo.getName(), ENV.prefixExcept));
+				tableInfo.setEntityName(this.makeEntityName(tableInfo.getName(), ENV.prefixExcept));
 
 				// ClassName 을 만든다.
-				classInfo.setName(makeClassName(tableInfo.getEntityName()));
+				classInfo.setName(this.makeClassName(tableInfo.getEntityName()));
 
 				for (int i = 0; i < rm.getColumnCount(); i++) {
 					classInfo.getPropertyList().add(
-							new PropertyInfo(makePropertyName(tableInfo.getColumnInfoList().get(i).getName()), makePropertyType(tableInfo
-									.getColumnInfoList().get(i).getType())));
+							new PropertyInfo(this.makePropertyName(tableInfo.getColumnInfoList().get(i).getName()),
+									this.makePropertyType(tableInfo .getColumnInfoList().get(i).getType())));
 				}
 
 				tableInfoList.add(tableInfo);
@@ -110,7 +118,7 @@ public class SharedInfo {
 	 * 
 	 * @param prefixExcept 엔티티명에서 제외할 문자열
 	 */
-	private String makeEntityName(String tableName, String prefixExcept) {
+	protected String makeEntityName(String tableName, String prefixExcept) {
 
 		// prefixExcept을 엔티티명에서 제외한다.
 		tableName = tableName.replaceAll(prefixExcept, "");
@@ -132,7 +140,7 @@ public class SharedInfo {
 	}
 
 	/** 클래스명을 만든다. */
-	private String makeClassName(String entityName) {
+	protected String makeClassName(String entityName) {
 		return entityName + ENV.classNameSuffix;
 	}
 
@@ -142,7 +150,7 @@ public class SharedInfo {
 	 * @param 변환 될 실제 DB 컬럼명
 	 * @return 변환 된 프로퍼티명(DB 컬럼명과 매칭)
 	 * */
-	private String makePropertyName(String columnName) {
+	protected String makePropertyName(String columnName) {
 		columnName = columnName.toLowerCase(Locale.ENGLISH);
 
 		while (true) {
@@ -186,7 +194,7 @@ public class SharedInfo {
 	 * @param 변환 될 실제 DB 컬럼 타입
 	 * @return 변환 된 프로퍼티 타입(DB 컬럼 타입과 매칭)
 	 * */
-	private String makePropertyType(String columnType) {
+	protected String makePropertyType(String columnType) {
 		String propertyType = columnType.toUpperCase();
 
 		if ("HIGH".equals(ENV.couplingType)) {
@@ -245,6 +253,21 @@ public class SharedInfo {
 
 	public List<MapperInterfaceInfo> getMapperInterfaceInfoList() {
 		return mapperInterfaceInfoList;
+	}
+
+	private Map<String, String> getComments(Connection con, String tableName) throws Exception {
+
+		Map<String, String> map = new HashMap<>();
+		PreparedStatement pstmtComment = con.prepareStatement("SELECT TABLE_NAME, COLUMN_NAME, COLUMN_COMMENT\n" +
+				"   FROM INFORMATION_SCHEMA.COLUMNS\n" +
+				"  WHERE TABLE_NAME = ?");
+		pstmtComment.setString( 1, tableName );
+		ResultSet rsComment = pstmtComment.executeQuery();
+		while(rsComment.next()) {
+			map.put( rsComment.getString("COLUMN_NAME"), rsComment.getString("COLUMN_COMMENT") );
+		}
+
+		return map;
 	}
 
 }

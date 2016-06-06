@@ -210,6 +210,7 @@ public class SqlMapperBuilderForIbatis extends SqlMapperBuilder {
 				isGreaterThan.setAttribute(makeAttribute("property", classFile.getPropertyList().get(i).getName()));
 				isGreaterThan.setAttribute(makeAttribute("prepend", "AND"));
 				isGreaterThan.setAttribute(makeAttribute("compareValue", "0"));
+				isGreaterThan.setAttribute(makeAttribute("compareValue", "0"));
 				isGreaterThan.addContent("\n\t\t\t\t" + table.getColumnInfoList().get(i).getName() + " = #" + classFile.getPropertyList().get(i).getName() + "#\n\t\t\t");
 				dynamic.addContent(isGreaterThan);
 			} else {
@@ -264,9 +265,11 @@ public class SqlMapperBuilderForIbatis extends SqlMapperBuilder {
 		String sql = "\n\t\tINSERT INTO " + table.getName() + " ( ";
 		for (int i = 0; i < classFile.getPropertyList().size(); i++) {
 			if (i == 0) {
-				sql = sql + "\n\t\t\t" + table.getColumnInfoList().get(i).getName();
+				sql = sql + "\n\t\t\t" + table.getColumnInfoList().get(i).getName()
+						+ "\t\t/*"+ table.getColumnInfoList().get(i).getComment() +"*/";
 			} else {
-				sql = sql + "\n\t\t\t" + "," + table.getColumnInfoList().get(i).getName();
+				sql = sql + "\n\t\t\t" + "," + table.getColumnInfoList().get(i).getName()
+						+ "\t\t/*"+ table.getColumnInfoList().get(i).getComment() +"*/";
 			}
 		}
 		sql += "\n\t\t) VALUES (";
@@ -286,9 +289,13 @@ public class SqlMapperBuilderForIbatis extends SqlMapperBuilder {
 		String sql = "\n\t\tSELECT ";
 		for (int i = 0; i < classFile.getPropertyList().size(); i++) {
 			if (i == 0) {
-				sql = sql + "\n\t\t\t" + table.getColumnInfoList().get(i).getName() + "\tAS " + classFile.getPropertyList().get(i).getName();
+				sql = sql + "\n\t\t\t" + table.getColumnInfoList().get(i).getName()
+						+ "\tAS " + classFile.getPropertyList().get(i).getName()
+						+ "\t\t/*"+ table.getColumnInfoList().get(i).getComment() +"*/";
 			} else {
-				sql = sql + "\n\t\t\t" + "," + table.getColumnInfoList().get(i).getName() + "\tAS " + classFile.getPropertyList().get(i).getName();
+				sql = sql + "\n\t\t\t" + "," + table.getColumnInfoList().get(i).getName()
+						+ "\tAS " + classFile.getPropertyList().get(i).getName()
+						+ "\t\t/*"+ table.getColumnInfoList().get(i).getComment() +"*/";
 			}
 		}
 		sql = sql + "\n\t\tFROM " + table.getName() + "\n\t\t";

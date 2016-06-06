@@ -1,4 +1,5 @@
 package smallwheel.mybro.common;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Locale;
@@ -27,7 +28,7 @@ public final class ContextMaster {
 	public static String getString(String name) {
 		try {
 			// resources = ResourceBundle.getBundle("conf.environment" + filename, Locale.getDefault());
-			FileInputStream fis = new FileInputStream(".\\environment.properties");
+			FileInputStream fis = new FileInputStream("."+ File.separator+"environment.properties");
 			resources = new PropertyResourceBundle(fis);
 		} catch (MissingResourceException | IOException mre) {
 			if (LOGGER.isDebugEnabled()) {
