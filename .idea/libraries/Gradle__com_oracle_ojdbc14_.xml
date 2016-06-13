@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: com.oracle:ojdbc14:">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Mybro-console/lib/ojdbc14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/ojdbc14.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

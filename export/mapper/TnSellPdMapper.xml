@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="TnSellPd">
+	<!-- Use type aliases to avoid typing the full class name every time. -->
+	<typeAlias alias="TnSellPd" type="TnSellPd" />
+	<resultMap type="TnSellPd" id="retTnSellPd">
+		<result property="sellPdId" javaType="String" column="SELL_PD_ID" />
+		<result property="sellPdNm" javaType="String" column="SELL_PD_NM" />
+		<result property="stdCateId" javaType="String" column="STD_CATE_ID" />
+		<result property="catePathCd" javaType="String" column="CATE_PATH_CD" />
+		<result property="catePathNm" javaType="String" column="CATE_PATH_NM" />
+		<result property="sellPdDesc" javaType="String" column="SELL_PD_DESC" />
+		<result property="sellYn" javaType="String" column="SELL_YN" />
+		<result property="chargYn" javaType="String" column="CHARG_YN" />
+		<result property="pdCompCnt" javaType="int" column="PD_COMP_CNT" />
+		<result property="mstRefId" javaType="String" column="MST_REF_ID" />
+		<result property="sktCommission" javaType="int" column="SKT_COMMISSION" />
+		<result property="membershipSaleYn" javaType="String" column="MEMBERSHIP_SALE_YN" />
+		<result property="cpnPossYn" javaType="String" column="CPN_POSS_YN" />
+		<result property="comId" javaType="String" column="COM_ID" />
+		<result property="bundleTp" javaType="String" column="BUNDLE_TP" />
+		<result property="sellPrice" javaType="String" column="SELL_PRICE" />
+		<result property="consumerPrice" javaType="String" column="CONSUMER_PRICE" />
+		<result property="saleper" javaType="int" column="SALEPER" />
+		<result property="dispStDt" javaType="String" column="DISP_ST_DT" />
+		<result property="dispEdDt" javaType="String" column="DISP_ED_DT" />
+		<result property="relPdDispTp" javaType="String" column="REL_PD_DISP_TP" />
+		<result property="approvalStatus" javaType="String" column="APPROVAL_STATUS" />
+		<result property="approvalReason" javaType="String" column="APPROVAL_REASON" />
+		<result property="dispTp" javaType="String" column="DISP_TP" />
+		<result property="pdDivCd" javaType="String" column="PD_DIV_CD" />
+		<result property="topIcon1UseYn" javaType="String" column="TOP_ICON1_USE_YN" />
+		<result property="topIcon2UseYn" javaType="String" column="TOP_ICON2_USE_YN" />
+		<result property="topIcon3UseYn" javaType="String" column="TOP_ICON3_USE_YN" />
+		<result property="bottomIcon1UseYn" javaType="String" column="BOTTOM_ICON1_USE_YN" />
+		<result property="bottomIcon2UseYn" javaType="String" column="BOTTOM_ICON2_USE_YN" />
+		<result property="bottomIcon3UseYn" javaType="String" column="BOTTOM_ICON3_USE_YN" />
+		<result property="saleRate" javaType="String" column="SALE_RATE" />
+		<result property="stockCnt" javaType="int" column="STOCK_CNT" />
+		<result property="paySmsYn" javaType="String" column="PAY_SMS_YN" />
+		<result property="memberAddInfoYn" javaType="String" column="MEMBER_ADD_INFO_YN" />
+		<result property="fixedPrice" javaType="String" column="FIXED_PRICE" />
+		<result property="optYn" javaType="String" column="OPT_YN" />
+		<result property="addOptYn" javaType="String" column="ADD_OPT_YN" />
+		<result property="optTp" javaType="String" column="OPT_TP" />
+		<result property="giftYn" javaType="String" column="GIFT_YN" />
+		<result property="regId" javaType="String" column="REG_ID" />
+		<result property="regDt" javaType="String" column="REG_DT" />
+		<result property="modId" javaType="String" column="MOD_ID" />
+		<result property="modDt" javaType="String" column="MOD_DT" />
+		<result property="deliveryScheduleDt" javaType="String" column="DELIVERY_SCHEDULE_DT" />
+		<result property="deliveryScheduleYn" javaType="String" column="DELIVERY_SCHEDULE_YN" />
+		<result property="lifeOptYn" javaType="String" column="LIFE_OPT_YN" />
+		<result property="indepenOptYn" javaType="String" column="INDEPEN_OPT_YN" />
+		<result property="depenOptYn" javaType="String" column="DEPEN_OPT_YN" />
+	</resultMap>
+	
+
+	<!-- Dynamic Where Condition -->
+	<sql id="dynamicWhere">
+		<where>
+			<if test="sellPdId != null and sellPdId != ''">
+				AND SELL_PD_ID = #{sellPdId}
+			</if>
+			<if test="sellPdNm != null and sellPdNm != ''">
+				AND SELL_PD_NM = #{sellPdNm}
+			</if>
+			<if test="stdCateId != null and stdCateId != ''">
+				AND STD_CATE_ID = #{stdCateId}
+			</if>
+			<if test="catePathCd != null and catePathCd != ''">
+				AND CATE_PATH_CD = #{catePathCd}
+			</if>
+			<if test="catePathNm != null and catePathNm != ''">
+				AND CATE_PATH_NM = #{catePathNm}
+			</if>
+			<if test="sellPdDesc != null and sellPdDesc != ''">
+				AND SELL_PD_DESC = #{sellPdDesc}
+			</if>
+			<if test="sellYn != null and sellYn != ''">
+				AND SELL_YN = #{sellYn}
+			</if>
+			<if test="chargYn != null and chargYn != ''">
+				AND CHARG_YN = #{chargYn}
+			</if>
+			<if test="pdCompCnt &gt; 0">
+				AND PD_COMP_CNT = #{pdCompCnt}
+			</if>
+			<if test="mstRefId != null and mstRefId != ''">
+				AND MST_REF_ID = #{mstRefId}
+			</if>
+			<if test="sktCommission != null and sktCommission != ''">
+				AND SKT_COMMISSION = #{sktCommission}
+			</if>
+			<if test="membershipSaleYn != null and membershipSaleYn != ''">
+				AND MEMBERSHIP_SALE_YN = #{membershipSaleYn}
+			</if>
+			<if test="cpnPossYn != null and cpnPossYn != ''">
+				AND CPN_POSS_YN = #{cpnPossYn}
+			</if>
+			<if test="comId != null and comId != ''">
+				AND COM_ID = #{comId}
+			</if>
+			<if test="bundleTp != null and bundleTp != ''">
+				AND BUNDLE_TP = #{bundleTp}
+			</if>
+			<if test="sellPrice != null and sellPrice != ''">
+				AND SELL_PRICE = #{sellPrice}
+			</if>
+			<if test="consumerPrice != null and consumerPrice != ''">
+				AND CONSUMER_PRICE = #{consumerPrice}
+			</if>
+			<if test="saleper &gt; 0">
+				AND SALEPER = #{saleper}
+			</if>
+			<if test="dispStDt != null and dispStDt != ''">
+				AND DISP_ST_DT = #{dispStDt}
+			</if>
+			<if test="dispEdDt != null and dispEdDt != ''">
+				AND DISP_ED_DT = #{dispEdDt}
+			</if>
+			<if test="relPdDispTp != null and relPdDispTp != ''">
+				AND REL_PD_DISP_TP = #{relPdDispTp}
+			</if>
+			<if test="approvalStatus != null and approvalStatus != ''">
+				AND APPROVAL_STATUS = #{approvalStatus}
+			</if>
+			<if test="approvalReason != null and approvalReason != ''">
+				AND APPROVAL_REASON = #{approvalReason}
+			</if>
+			<if test="dispTp != null and dispTp != ''">
+				AND DISP_TP = #{dispTp}
+			</if>
+			<if test="pdDivCd != null and pdDivCd != ''">
+				AND PD_DIV_CD = #{pdDivCd}
+			</if>
+			<if test="topIcon1UseYn != null and topIcon1UseYn != ''">
+				AND TOP_ICON1_USE_YN = #{topIcon1UseYn}
+			</if>
+			<if test="topIcon2UseYn != null and topIcon2UseYn != ''">
+				AND TOP_ICON2_USE_YN = #{topIcon2UseYn}
+			</if>
+			<if test="topIcon3UseYn != null and topIcon3UseYn != ''">
+				AND TOP_ICON3_USE_YN = #{topIcon3UseYn}
+			</if>
+			<if test="bottomIcon1UseYn != null and bottomIcon1UseYn != ''">
+				AND BOTTOM_ICON1_USE_YN = #{bottomIcon1UseYn}
+			</if>
+			<if test="bottomIcon2UseYn != null and bottomIcon2UseYn != ''">
+				AND BOTTOM_ICON2_USE_YN = #{bottomIcon2UseYn}
+			</if>
+			<if test="bottomIcon3UseYn != null and bottomIcon3UseYn != ''">
+				AND BOTTOM_ICON3_USE_YN = #{bottomIcon3UseYn}
+			</if>
+			<if test="saleRate != null and saleRate != ''">
+				AND SALE_RATE = #{saleRate}
+			</if>
+			<if test="stockCnt &gt; 0">
+				AND STOCK_CNT = #{stockCnt}
+			</if>
+			<if test="paySmsYn != null and paySmsYn != ''">
+				AND PAY_SMS_YN = #{paySmsYn}
+			</if>
+			<if test="memberAddInfoYn != null and memberAddInfoYn != ''">
+				AND MEMBER_ADD_INFO_YN = #{memberAddInfoYn}
+			</if>
+			<if test="fixedPrice != null and fixedPrice != ''">
+				AND FIXED_PRICE = #{fixedPrice}
+			</if>
+			<if test="optYn != null and optYn != ''">
+				AND OPT_YN = #{optYn}
+			</if>
+			<if test="addOptYn != null and addOptYn != ''">
+				AND ADD_OPT_YN = #{addOptYn}
+			</if>
+			<if test="optTp != null and optTp != ''">
+				AND OPT_TP = #{optTp}
+			</if>
+			<if test="giftYn != null and giftYn != ''">
+				AND GIFT_YN = #{giftYn}
+			</if>
+			<if test="regId != null and regId != ''">
+				AND REG_ID = #{regId}
+			</if>
+			<if test="regDt != null and regDt != ''">
+				AND REG_DT = #{regDt}
+			</if>
+			<if test="modId != null and modId != ''">
+				AND MOD_ID = #{modId}
+			</if>
+			<if test="modDt != null and modDt != ''">
+				AND MOD_DT = #{modDt}
+			</if>
+			<if test="deliveryScheduleDt != null and deliveryScheduleDt != ''">
+				AND DELIVERY_SCHEDULE_DT = #{deliveryScheduleDt}
+			</if>
+			<if test="deliveryScheduleYn != null and deliveryScheduleYn != ''">
+				AND DELIVERY_SCHEDULE_YN = #{deliveryScheduleYn}
+			</if>
+			<if test="lifeOptYn != null and lifeOptYn != ''">
+				AND LIFE_OPT_YN = #{lifeOptYn}
+			</if>
+			<if test="indepenOptYn != null and indepenOptYn != ''">
+				AND INDEPEN_OPT_YN = #{indepenOptYn}
+			</if>
+			<if test="depenOptYn != null and depenOptYn != ''">
+				AND DEPEN_OPT_YN = #{depenOptYn}
+			</if>
+		</where>
+	</sql>
+	
+
+	<!-- Insert TN_SELL_PD -->
+	<insert id="insertTnSellPd" parameterType="TnSellPd">
+		INSERT INTO TN_SELL_PD ( 
+			SELL_PD_ID		/*판매 상품 아이디*/
+			,SELL_PD_NM		/*판매 상품 명*/
+			,STD_CATE_ID		/*표준카테고리ID*/
+			,CATE_PATH_CD		/*카테고리 경로 코드*/
+			,CATE_PATH_NM		/*카테고리 경로 이름*/
+			,SELL_PD_DESC		/*판매 상품 설명*/
+			,SELL_YN		/*판매 여부*/
+			,CHARG_YN		/*유료 여부*/
+			,PD_COMP_CNT		/*상품 구성 총수*/
+			,MST_REF_ID		/*마스터 참조 아이디*/
+			,SKT_COMMISSION		/*SKT 수수료*/
+			,MEMBERSHIP_SALE_YN		/*멤버쉽 할인 여부*/
+			,CPN_POSS_YN		/*쿠폰 가능 여부*/
+			,COM_ID		/*업체 아이디*/
+			,BUNDLE_TP		/*묶음 유형*/
+			,SELL_PRICE		/*판매 가격*/
+			,CONSUMER_PRICE		/*소비자 가격*/
+			,SALEPER		/*할인률*/
+			,DISP_ST_DT		/*전시 시작 일시*/
+			,DISP_ED_DT		/*전시 종료 일시*/
+			,REL_PD_DISP_TP		/*관련 상품 전시 유형*/
+			,APPROVAL_STATUS		/*승인 상태*/
+			,APPROVAL_REASON		/*승인 메시지*/
+			,DISP_TP		/*전시 유형*/
+			,PD_DIV_CD		/*상품 구분 코드*/
+			,TOP_ICON1_USE_YN		/*상 아이콘1 사용 여부*/
+			,TOP_ICON2_USE_YN		/*상 아이콘2 사용 여부*/
+			,TOP_ICON3_USE_YN		/*상 아이콘3 사용 여부*/
+			,BOTTOM_ICON1_USE_YN		/*하 아이콘1 사용 여부*/
+			,BOTTOM_ICON2_USE_YN		/*하 아이콘2 사용 여부*/
+			,BOTTOM_ICON3_USE_YN		/*하 아이콘3 사용 여부*/
+			,SALE_RATE		/*할인 비율*/
+			,STOCK_CNT		/*재고 건수*/
+			,PAY_SMS_YN		/*결제 SMS 여부*/
+			,MEMBER_ADD_INFO_YN		/*회원 부가 정보 여부*/
+			,FIXED_PRICE		/*정가*/
+			,OPT_YN		/*옵션 여부*/
+			,ADD_OPT_YN		/*추가 옵션 여부*/
+			,OPT_TP		/*옵션 유형(선택옵션)*/
+			,GIFT_YN		/*사은품 여부*/
+			,REG_ID		/*등록 아이디*/
+			,REG_DT		/*등록 일시*/
+			,MOD_ID		/*수정 아이디*/
+			,MOD_DT		/*수정 일시*/
+			,DELIVERY_SCHEDULE_DT		/*배송 예정 일시*/
+			,DELIVERY_SCHEDULE_YN		/*배송 예정 여부*/
+			,LIFE_OPT_YN		/*체험 옵션*/
+			,INDEPEN_OPT_YN		/*독립 옵션*/
+			,DEPEN_OPT_YN		/*종속 옵션*/
+		) VALUES (
+			#{sellPdId} 
+			,#{sellPdNm} 
+			,#{stdCateId} 
+			,#{catePathCd} 
+			,#{catePathNm} 
+			,#{sellPdDesc} 
+			,#{sellYn} 
+			,#{chargYn} 
+			,#{pdCompCnt} 
+			,#{mstRefId} 
+			,#{sktCommission} 
+			,#{membershipSaleYn} 
+			,#{cpnPossYn} 
+			,#{comId} 
+			,#{bundleTp} 
+			,#{sellPrice} 
+			,#{consumerPrice} 
+			,#{saleper} 
+			,#{dispStDt} 
+			,#{dispEdDt} 
+			,#{relPdDispTp} 
+			,#{approvalStatus} 
+			,#{approvalReason} 
+			,#{dispTp} 
+			,#{pdDivCd} 
+			,#{topIcon1UseYn} 
+			,#{topIcon2UseYn} 
+			,#{topIcon3UseYn} 
+			,#{bottomIcon1UseYn} 
+			,#{bottomIcon2UseYn} 
+			,#{bottomIcon3UseYn} 
+			,#{saleRate} 
+			,#{stockCnt} 
+			,#{paySmsYn} 
+			,#{memberAddInfoYn} 
+			,#{fixedPrice} 
+			,#{optYn} 
+			,#{addOptYn} 
+			,#{optTp} 
+			,#{giftYn} 
+			,#{regId} 
+			,#{regDt} 
+			,#{modId} 
+			,#{modDt} 
+			,#{deliveryScheduleDt} 
+			,#{deliveryScheduleYn} 
+			,#{lifeOptYn} 
+			,#{indepenOptYn} 
+			,#{depenOptYn} 
+		);
+	</insert>
+	
+
+	<!-- Select TN_SELL_PD List -->
+	<select id="selectTnSellPdList" parameterType="TnSellPd" resultType="TnSellPd">
+		
+		SELECT 
+			SELL_PD_ID	AS sellPdId		/*판매 상품 아이디*/
+			,SELL_PD_NM	AS sellPdNm		/*판매 상품 명*/
+			,STD_CATE_ID	AS stdCateId		/*표준카테고리ID*/
+			,CATE_PATH_CD	AS catePathCd		/*카테고리 경로 코드*/
+			,CATE_PATH_NM	AS catePathNm		/*카테고리 경로 이름*/
+			,SELL_PD_DESC	AS sellPdDesc		/*판매 상품 설명*/
+			,SELL_YN	AS sellYn		/*판매 여부*/
+			,CHARG_YN	AS chargYn		/*유료 여부*/
+			,PD_COMP_CNT	AS pdCompCnt		/*상품 구성 총수*/
+			,MST_REF_ID	AS mstRefId		/*마스터 참조 아이디*/
+			,SKT_COMMISSION	AS sktCommission		/*SKT 수수료*/
+			,MEMBERSHIP_SALE_YN	AS membershipSaleYn		/*멤버쉽 할인 여부*/
+			,CPN_POSS_YN	AS cpnPossYn		/*쿠폰 가능 여부*/
+			,COM_ID	AS comId		/*업체 아이디*/
+			,BUNDLE_TP	AS bundleTp		/*묶음 유형*/
+			,SELL_PRICE	AS sellPrice		/*판매 가격*/
+			,CONSUMER_PRICE	AS consumerPrice		/*소비자 가격*/
+			,SALEPER	AS saleper		/*할인률*/
+			,DISP_ST_DT	AS dispStDt		/*전시 시작 일시*/
+			,DISP_ED_DT	AS dispEdDt		/*전시 종료 일시*/
+			,REL_PD_DISP_TP	AS relPdDispTp		/*관련 상품 전시 유형*/
+			,APPROVAL_STATUS	AS approvalStatus		/*승인 상태*/
+			,APPROVAL_REASON	AS approvalReason		/*승인 메시지*/
+			,DISP_TP	AS dispTp		/*전시 유형*/
+			,PD_DIV_CD	AS pdDivCd		/*상품 구분 코드*/
+			,TOP_ICON1_USE_YN	AS topIcon1UseYn		/*상 아이콘1 사용 여부*/
+			,TOP_ICON2_USE_YN	AS topIcon2UseYn		/*상 아이콘2 사용 여부*/
+			,TOP_ICON3_USE_YN	AS topIcon3UseYn		/*상 아이콘3 사용 여부*/
+			,BOTTOM_ICON1_USE_YN	AS bottomIcon1UseYn		/*하 아이콘1 사용 여부*/
+			,BOTTOM_ICON2_USE_YN	AS bottomIcon2UseYn		/*하 아이콘2 사용 여부*/
+			,BOTTOM_ICON3_USE_YN	AS bottomIcon3UseYn		/*하 아이콘3 사용 여부*/
+			,SALE_RATE	AS saleRate		/*할인 비율*/
+			,STOCK_CNT	AS stockCnt		/*재고 건수*/
+			,PAY_SMS_YN	AS paySmsYn		/*결제 SMS 여부*/
+			,MEMBER_ADD_INFO_YN	AS memberAddInfoYn		/*회원 부가 정보 여부*/
+			,FIXED_PRICE	AS fixedPrice		/*정가*/
+			,OPT_YN	AS optYn		/*옵션 여부*/
+			,ADD_OPT_YN	AS addOptYn		/*추가 옵션 여부*/
+			,OPT_TP	AS optTp		/*옵션 유형(선택옵션)*/
+			,GIFT_YN	AS giftYn		/*사은품 여부*/
+			,REG_ID	AS regId		/*등록 아이디*/
+			,REG_DT	AS regDt		/*등록 일시*/
+			,MOD_ID	AS modId		/*수정 아이디*/
+			,MOD_DT	AS modDt		/*수정 일시*/
+			,DELIVERY_SCHEDULE_DT	AS deliveryScheduleDt		/*배송 예정 일시*/
+			,DELIVERY_SCHEDULE_YN	AS deliveryScheduleYn		/*배송 예정 여부*/
+			,LIFE_OPT_YN	AS lifeOptYn		/*체험 옵션*/
+			,INDEPEN_OPT_YN	AS indepenOptYn		/*독립 옵션*/
+			,DEPEN_OPT_YN	AS depenOptYn		/*종속 옵션*/
+		FROM TN_SELL_PD		
+		<include refid="dynamicWhere" />
+	</select>
+	
+
+	<!-- Select TN_SELL_PD -->
+	<select id="selectTnSellPd" parameterType="TnSellPd" resultType="TnSellPd">
+		SELECT 
+			SELL_PD_ID	AS sellPdId		/*판매 상품 아이디*/
+			,SELL_PD_NM	AS sellPdNm		/*판매 상품 명*/
+			,STD_CATE_ID	AS stdCateId		/*표준카테고리ID*/
+			,CATE_PATH_CD	AS catePathCd		/*카테고리 경로 코드*/
+			,CATE_PATH_NM	AS catePathNm		/*카테고리 경로 이름*/
+			,SELL_PD_DESC	AS sellPdDesc		/*판매 상품 설명*/
+			,SELL_YN	AS sellYn		/*판매 여부*/
+			,CHARG_YN	AS chargYn		/*유료 여부*/
+			,PD_COMP_CNT	AS pdCompCnt		/*상품 구성 총수*/
+			,MST_REF_ID	AS mstRefId		/*마스터 참조 아이디*/
+			,SKT_COMMISSION	AS sktCommission		/*SKT 수수료*/
+			,MEMBERSHIP_SALE_YN	AS membershipSaleYn		/*멤버쉽 할인 여부*/
+			,CPN_POSS_YN	AS cpnPossYn		/*쿠폰 가능 여부*/
+			,COM_ID	AS comId		/*업체 아이디*/
+			,BUNDLE_TP	AS bundleTp		/*묶음 유형*/
+			,SELL_PRICE	AS sellPrice		/*판매 가격*/
+			,CONSUMER_PRICE	AS consumerPrice		/*소비자 가격*/
+			,SALEPER	AS saleper		/*할인률*/
+			,DISP_ST_DT	AS dispStDt		/*전시 시작 일시*/
+			,DISP_ED_DT	AS dispEdDt		/*전시 종료 일시*/
+			,REL_PD_DISP_TP	AS relPdDispTp		/*관련 상품 전시 유형*/
+			,APPROVAL_STATUS	AS approvalStatus		/*승인 상태*/
+			,APPROVAL_REASON	AS approvalReason		/*승인 메시지*/
+			,DISP_TP	AS dispTp		/*전시 유형*/
+			,PD_DIV_CD	AS pdDivCd		/*상품 구분 코드*/
+			,TOP_ICON1_USE_YN	AS topIcon1UseYn		/*상 아이콘1 사용 여부*/
+			,TOP_ICON2_USE_YN	AS topIcon2UseYn		/*상 아이콘2 사용 여부*/
+			,TOP_ICON3_USE_YN	AS topIcon3UseYn		/*상 아이콘3 사용 여부*/
+			,BOTTOM_ICON1_USE_YN	AS bottomIcon1UseYn		/*하 아이콘1 사용 여부*/
+			,BOTTOM_ICON2_USE_YN	AS bottomIcon2UseYn		/*하 아이콘2 사용 여부*/
+			,BOTTOM_ICON3_USE_YN	AS bottomIcon3UseYn		/*하 아이콘3 사용 여부*/
+			,SALE_RATE	AS saleRate		/*할인 비율*/
+			,STOCK_CNT	AS stockCnt		/*재고 건수*/
+			,PAY_SMS_YN	AS paySmsYn		/*결제 SMS 여부*/
+			,MEMBER_ADD_INFO_YN	AS memberAddInfoYn		/*회원 부가 정보 여부*/
+			,FIXED_PRICE	AS fixedPrice		/*정가*/
+			,OPT_YN	AS optYn		/*옵션 여부*/
+			,ADD_OPT_YN	AS addOptYn		/*추가 옵션 여부*/
+			,OPT_TP	AS optTp		/*옵션 유형(선택옵션)*/
+			,GIFT_YN	AS giftYn		/*사은품 여부*/
+			,REG_ID	AS regId		/*등록 아이디*/
+			,REG_DT	AS regDt		/*등록 일시*/
+			,MOD_ID	AS modId		/*수정 아이디*/
+			,MOD_DT	AS modDt		/*수정 일시*/
+			,DELIVERY_SCHEDULE_DT	AS deliveryScheduleDt		/*배송 예정 일시*/
+			,DELIVERY_SCHEDULE_YN	AS deliveryScheduleYn		/*배송 예정 여부*/
+			,LIFE_OPT_YN	AS lifeOptYn		/*체험 옵션*/
+			,INDEPEN_OPT_YN	AS indepenOptYn		/*독립 옵션*/
+			,DEPEN_OPT_YN	AS depenOptYn		/*종속 옵션*/
+		FROM TN_SELL_PD		
+		WHERE
+			SELL_PD_ID = #{sellPdId}
+	</select>
+	
+
+	<!-- Update TN_SELL_PD -->
+	<update id="updateTnSellPd" parameterType="TnSellPd">
+		
+		UPDATE TN_SELL_PD
+		<trim prefix="SET" prefixOverrides=",">
+			<if test="sellPdNm != null and sellPdNm != ''">
+				, SELL_PD_NM = #{sellPdNm}
+			</if>
+			<if test="stdCateId != null and stdCateId != ''">
+				, STD_CATE_ID = #{stdCateId}
+			</if>
+			<if test="catePathCd != null and catePathCd != ''">
+				, CATE_PATH_CD = #{catePathCd}
+			</if>
+			<if test="catePathNm != null and catePathNm != ''">
+				, CATE_PATH_NM = #{catePathNm}
+			</if>
+			<if test="sellPdDesc != null and sellPdDesc != ''">
+				, SELL_PD_DESC = #{sellPdDesc}
+			</if>
+			<if test="sellYn != null and sellYn != ''">
+				, SELL_YN = #{sellYn}
+			</if>
+			<if test="chargYn != null and chargYn != ''">
+				, CHARG_YN = #{chargYn}
+			</if>
+			<if test="pdCompCnt &gt; 0">
+				, PD_COMP_CNT = #{pdCompCnt}
+			</if>
+			<if test="mstRefId != null and mstRefId != ''">
+				, MST_REF_ID = #{mstRefId}
+			</if>
+			<if test="sktCommission != null and sktCommission != ''">
+				, SKT_COMMISSION = #{sktCommission}
+			</if>
+			<if test="membershipSaleYn != null and membershipSaleYn != ''">
+				, MEMBERSHIP_SALE_YN = #{membershipSaleYn}
+			</if>
+			<if test="cpnPossYn != null and cpnPossYn != ''">
+				, CPN_POSS_YN = #{cpnPossYn}
+			</if>
+			<if test="comId != null and comId != ''">
+				, COM_ID = #{comId}
+			</if>
+			<if test="bundleTp != null and bundleTp != ''">
+				, BUNDLE_TP = #{bundleTp}
+			</if>
+			<if test="sellPrice != null and sellPrice != ''">
+				, SELL_PRICE = #{sellPrice}
+			</if>
+			<if test="consumerPrice != null and consumerPrice != ''">
+				, CONSUMER_PRICE = #{consumerPrice}
+			</if>
+			<if test="saleper &gt; 0">
+				, SALEPER = #{saleper}
+			</if>
+			<if test="dispStDt != null and dispStDt != ''">
+				, DISP_ST_DT = #{dispStDt}
+			</if>
+			<if test="dispEdDt != null and dispEdDt != ''">
+				, DISP_ED_DT = #{dispEdDt}
+			</if>
+			<if test="relPdDispTp != null and relPdDispTp != ''">
+				, REL_PD_DISP_TP = #{relPdDispTp}
+			</if>
+			<if test="approvalStatus != null and approvalStatus != ''">
+				, APPROVAL_STATUS = #{approvalStatus}
+			</if>
+			<if test="approvalReason != null and approvalReason != ''">
+				, APPROVAL_REASON = #{approvalReason}
+			</if>
+			<if test="dispTp != null and dispTp != ''">
+				, DISP_TP = #{dispTp}
+			</if>
+			<if test="pdDivCd != null and pdDivCd != ''">
+				, PD_DIV_CD = #{pdDivCd}
+			</if>
+			<if test="topIcon1UseYn != null and topIcon1UseYn != ''">
+				, TOP_ICON1_USE_YN = #{topIcon1UseYn}
+			</if>
+			<if test="topIcon2UseYn != null and topIcon2UseYn != ''">
+				, TOP_ICON2_USE_YN = #{topIcon2UseYn}
+			</if>
+			<if test="topIcon3UseYn != null and topIcon3UseYn != ''">
+				, TOP_ICON3_USE_YN = #{topIcon3UseYn}
+			</if>
+			<if test="bottomIcon1UseYn != null and bottomIcon1UseYn != ''">
+				, BOTTOM_ICON1_USE_YN = #{bottomIcon1UseYn}
+			</if>
+			<if test="bottomIcon2UseYn != null and bottomIcon2UseYn != ''">
+				, BOTTOM_ICON2_USE_YN = #{bottomIcon2UseYn}
+			</if>
+			<if test="bottomIcon3UseYn != null and bottomIcon3UseYn != ''">
+				, BOTTOM_ICON3_USE_YN = #{bottomIcon3UseYn}
+			</if>
+			<if test="saleRate != null and saleRate != ''">
+				, SALE_RATE = #{saleRate}
+			</if>
+			<if test="stockCnt &gt; 0">
+				, STOCK_CNT = #{stockCnt}
+			</if>
+			<if test="paySmsYn != null and paySmsYn != ''">
+				, PAY_SMS_YN = #{paySmsYn}
+			</if>
+			<if test="memberAddInfoYn != null and memberAddInfoYn != ''">
+				, MEMBER_ADD_INFO_YN = #{memberAddInfoYn}
+			</if>
+			<if test="fixedPrice != null and fixedPrice != ''">
+				, FIXED_PRICE = #{fixedPrice}
+			</if>
+			<if test="optYn != null and optYn != ''">
+				, OPT_YN = #{optYn}
+			</if>
+			<if test="addOptYn != null and addOptYn != ''">
+				, ADD_OPT_YN = #{addOptYn}
+			</if>
+			<if test="optTp != null and optTp != ''">
+				, OPT_TP = #{optTp}
+			</if>
+			<if test="giftYn != null and giftYn != ''">
+				, GIFT_YN = #{giftYn}
+			</if>
+			<if test="regId != null and regId != ''">
+				, REG_ID = #{regId}
+			</if>
+			<if test="regDt != null and regDt != ''">
+				, REG_DT = #{regDt}
+			</if>
+			<if test="modId != null and modId != ''">
+				, MOD_ID = #{modId}
+			</if>
+			<if test="modDt != null and modDt != ''">
+				, MOD_DT = #{modDt}
+			</if>
+			<if test="deliveryScheduleDt != null and deliveryScheduleDt != ''">
+				, DELIVERY_SCHEDULE_DT = #{deliveryScheduleDt}
+			</if>
+			<if test="deliveryScheduleYn != null and deliveryScheduleYn != ''">
+				, DELIVERY_SCHEDULE_YN = #{deliveryScheduleYn}
+			</if>
+			<if test="lifeOptYn != null and lifeOptYn != ''">
+				, LIFE_OPT_YN = #{lifeOptYn}
+			</if>
+			<if test="indepenOptYn != null and indepenOptYn != ''">
+				, INDEPEN_OPT_YN = #{indepenOptYn}
+			</if>
+			<if test="depenOptYn != null and depenOptYn != ''">
+				, DEPEN_OPT_YN = #{depenOptYn}
+			</if>
+		</trim>
+		
+		WHERE
+			SELL_PD_ID = #{sellPdId}
+	
+	</update>
+	
+
+	<!-- Delete TN_SELL_PD -->
+	<delete id="deleteTnSellPd" parameterType="TnSellPd">
+		DELETE FROM TN_SELL_PD		
+		WHERE
+			SELL_PD_ID = #{sellPdId}
+	</delete>
+</mapper>
+

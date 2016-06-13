@@ -1,6 +1,6 @@
-# mybro (console mode)
+# smallwheel.mybro (console mode)
 
-mybro-console는 mybatis 및 ibatis를 위한 코드 생성용 콘솔 프로그램입니다. <br />
+smallwheel.mybro-console는 mybatis 및 ibatis를 위한 코드 생성용 콘솔 프로그램입니다. <br />
 mybatis 및 ibatis를 사용하는 프로젝트 초기에 반드시 거쳐야하지만 귀찮은 작업들을 줄이기 위한 목적으로 작성되었으며, 데이터베이스 접속 정보 및 테이블명을 입력받아, 관련 된 코드들을 자동으로 생성합니다. 현재는 콘솔 프로그램으로 작성되어 있으며, 차후 GUI로도 개발할 예정입니다.
 
 자동으로 생성되는 코드 목록:

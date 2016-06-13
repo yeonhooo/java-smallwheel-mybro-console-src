@@ -1,0 +1,17 @@
+INFO  [2016-06-09 00:02:07] ({main} smallwheel.mybro.common.ENV - ENV.java:93) - ############## [ Starting MyBro !!! ] ########################
+INFO  [2016-06-09 00:02:07] ({main} smallwheel.mybro.common.ENV - ENV.java:94) - #
+INFO  [2016-06-09 00:02:07] ({main} smallwheel.mybro.common.ENV - ENV.java:95) - #	DTO class files directory:	export/dto/
+INFO  [2016-06-09 00:02:07] ({main} smallwheel.mybro.common.ENV - ENV.java:96) - #	Sql mapper files directory:	export/mapper/
+INFO  [2016-06-09 00:02:07] ({main} smallwheel.mybro.common.ENV - ENV.java:97) - #	Log directory:	log/
+INFO  [2016-06-09 00:02:07] ({main} smallwheel.mybro.common.ENV - ENV.java:98) - #	Coupling type:	LOW
+INFO  [2016-06-09 00:02:07] ({main} smallwheel.mybro.common.ENV - ENV.java:99) - #	Mapper type:	MYBATIS
+INFO  [2016-06-09 00:02:07] ({main} smallwheel.mybro.common.ENV - ENV.java:100) - #	Exclude prefix string from entity name:	TN_
+INFO  [2016-06-09 00:02:07] ({main} smallwheel.mybro.common.ENV - ENV.java:101) - #	Java class name suffix: 	
+INFO  [2016-06-09 00:02:07] ({main} smallwheel.mybro.common.ENV - ENV.java:102) - ##############################################################
+
+INFO  [2016-06-09 00:02:07] ({main} smallwheel.mybro.common.DBManager - DBManager.java:25) - MSG] MYSQL connect
+INFO  [2016-06-09 00:02:07] ({main} smallwheel.mybro.common.DBManager - DBManager.java:120) - [mysql 연결] 112.172.130.170:3306 DB Connectionn 시도 id:kids pass:Kids_2016(@)!
+INFO  [2016-06-09 00:02:08] ({main} smallwheel.mybro.support.builder.DtoClassBuilder - SharedInfo.java:83) - [Table Name: TN_SELL_PD / Column Count: 49]
+INFO  [2016-06-09 00:02:08] ({main} smallwheel.mybro.support.builder.DtoClassBuilder - SharedInfo.java:84) - PK Columns
+INFO  [2016-06-09 00:02:08] ({main} smallwheel.mybro.support.builder.DtoClassBuilder - SharedInfo.java:86) - 	SELL_PD_ID
+INFO  [2016-06-09 00:02:08] ({main} smallwheel.mybro.MyBroMain - MyBroMain.java:62) - ### 1개 테이블에 대한 작업이 완료되었습니다.
