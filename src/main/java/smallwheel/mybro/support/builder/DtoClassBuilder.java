@@ -1,9 +1,12 @@
 package smallwheel.mybro.support.builder;
 
 import smallwheel.mybro.common.ClassFileInfo;
+import smallwheel.mybro.common.ColumnInfo;
 import smallwheel.mybro.common.Constants;
 import smallwheel.mybro.common.PropertyInfo;
 import smallwheel.mybro.common.SharedInfo;
+
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 import java.io.FileWriter;
@@ -36,10 +39,17 @@ public class DtoClassBuilder implements Builder {
 				// Class 작성 시작
 				writer.write("public class " + className + " {");
 				
+				int maxPropetyLength = 0;
+				for ( PropertyInfo property : classFile.getPropertyList() ) {
+					if ( maxPropetyLength < property.getName().getBytes().length ) {
+						maxPropetyLength = property.getName().getBytes().length;
+					}
+				}
+				
 				// Property 작성
 				writer.write("\n\t" + "/* properties */" + "\n");
 				for (PropertyInfo property : classFile.getPropertyList()) {
-					writer.write("\t" + "private " + property.getType() + " " + property.getName() + ";" + "\n");
+					writer.write("\t" + "private " + property.getType() + " " + StringUtils.rightPad(property.getName() + ";", maxPropetyLength + 1) + " /* " + property.getComment() + " */\n");
 				}
 				
 				// Getter, Setter 작성

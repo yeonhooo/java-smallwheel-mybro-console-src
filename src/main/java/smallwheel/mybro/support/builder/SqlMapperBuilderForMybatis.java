@@ -1,15 +1,28 @@
 package smallwheel.mybro.support.builder;
 
-import smallwheel.mybro.common.*;
-import org.apache.log4j.Logger;
-import org.jdom.*;
-import org.jdom.output.Format;
-import org.jdom.output.XMLOutputter;
-
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
+import org.jdom.Attribute;
+import org.jdom.Comment;
+import org.jdom.DocType;
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.output.Format;
+import org.jdom.output.XMLOutputter;
+
+import smallwheel.mybro.common.ClassFileInfo;
+import smallwheel.mybro.common.ColumnInfo;
+import smallwheel.mybro.common.Constants;
+import smallwheel.mybro.common.MapperInterfaceInfo;
+import smallwheel.mybro.common.PropertyInfo;
+import smallwheel.mybro.common.SharedInfo;
+import smallwheel.mybro.common.SqlMapInfo;
+import smallwheel.mybro.common.TableInfo;
 
 /**
  * Mybatis용 SqlMapperBuilder 클래스
@@ -269,22 +282,30 @@ public class SqlMapperBuilderForMybatis extends SqlMapperBuilder {
 	
 	/** insert 쿼리문 작성 */
 	private String makeInsertSqlMap(TableInfo table, ClassFileInfo classFile) {
+		
+		int maxColumnLength = 0;
+		for ( ColumnInfo col : table.getColumnInfoList() ) {
+			if ( maxColumnLength < col.getName().getBytes().length ) {
+				maxColumnLength = col.getName().getBytes().length;
+			}
+		}
+		
 		String sql = "\n\t\tINSERT INTO " + table.getName() + " ( ";
 		for (int i = 0; i < classFile.getPropertyList().size(); i++) {
 			if (i == 0) {
-				sql = sql + "\n\t\t\t" + table.getColumnInfoList().get(i).getName()
-						+ "\t\t/*"+ table.getColumnInfoList().get(i).getComment() +"*/";
+				sql = sql + "\n\t\t\t    " + StringUtils.rightPad(table.getColumnInfoList().get(i).getName(), maxColumnLength)
+						+ "  /* "+ table.getColumnInfoList().get(i).getComment() +" */";
 			} else {
-				sql = sql + "\n\t\t\t" + "," + table.getColumnInfoList().get(i).getName()
-						+ "\t\t/*"+ table.getColumnInfoList().get(i).getComment() +"*/";
+				sql = sql + "\n\t\t\t  , " + StringUtils.rightPad(table.getColumnInfoList().get(i).getName(), maxColumnLength)
+						+ "  /* "+ table.getColumnInfoList().get(i).getComment() +" */";
 			}
 		}
 		sql += "\n\t\t) VALUES (";
 		for (int i = 0; i < classFile.getPropertyList().size(); i++) {
 			if (i == 0) {
-				sql = sql + "\n\t\t\t#{" + classFile.getPropertyList().get(i).getName() + "} ";
+				sql = sql + "\n\t\t\t    #{" + classFile.getPropertyList().get(i).getName() + "} ";
 			} else {
-				sql = sql + "\n\t\t\t," + "#{" + classFile.getPropertyList().get(i).getName() + "} ";
+				sql = sql + "\n\t\t\t  , " + "#{" + classFile.getPropertyList().get(i).getName() + "} ";
 			}
 		}
 		sql += "\n\t\t);\n\t";
@@ -293,16 +314,22 @@ public class SqlMapperBuilderForMybatis extends SqlMapperBuilder {
 	
 	/** select 쿼리문 작성 */
 	private String makeSelectSqlMap(TableInfo table, ClassFileInfo classFile) {
+		
+		int maxColumnLength = 0;
+		for ( ColumnInfo col : table.getColumnInfoList() ) {
+			if ( maxColumnLength < col.getName().getBytes().length ) {
+				maxColumnLength = col.getName().getBytes().length;
+			}
+		}
+		
 		String sql = "\n\t\tSELECT ";
 		for (int i = 0; i < classFile.getPropertyList().size(); i++) {
 			if (i == 0) {
-				sql = sql + "\n\t\t\t" + table.getColumnInfoList().get(i).getName()
-						+ "\tAS " + classFile.getPropertyList().get(i).getName()
-						+ "\t\t/*" + table.getColumnInfoList().get(i).getComment() + "*/";
+				sql = sql + "\n\t\t\t    " + StringUtils.rightPad(table.getColumnInfoList().get(i).getName(), maxColumnLength)
+						+ "  /* "+ table.getColumnInfoList().get(i).getComment() +" */";
 			} else {
-				sql = sql + "\n\t\t\t" + "," + table.getColumnInfoList().get(i).getName()
-						+ "\tAS " + classFile.getPropertyList().get(i).getName()
-						+ "\t\t/*" + table.getColumnInfoList().get(i).getComment()+ "*/";;
+				sql = sql + "\n\t\t\t  , " + StringUtils.rightPad(table.getColumnInfoList().get(i).getName(), maxColumnLength)
+						+ "  /* "+ table.getColumnInfoList().get(i).getComment() +" */";
 			}
 		}
 		sql = sql + "\n\t\tFROM " + table.getName() + "\t\t";
@@ -315,9 +342,11 @@ public class SqlMapperBuilderForMybatis extends SqlMapperBuilder {
 		String sql = "\n\t\tUPDATE " + table.getName() + " \n\t\tSET";
 		for (int i = 0; i < classFile.getPropertyList().size(); i++) {
 			if (i == 0) {
-				sql = sql + "\n\t\t\t" + table.getColumnInfoList().get(i).getName() + " = " + "#{" + classFile.getPropertyList().get(i).getName() + "} ";
+				sql = sql + "\n\t\t\t    " + table.getColumnInfoList().get(i).getName() + " = " + "#{" + classFile.getPropertyList().get(i).getName() + "} "
+						+ "  /* "+ table.getColumnInfoList().get(i).getComment() +" */";
 			} else {
-				sql = sql + "\n\t\t\t" + "," + table.getColumnInfoList().get(i).getName() + " = " + "#{" + classFile.getPropertyList().get(i).getName() + "} ";
+				sql = sql + "\n\t\t\t  , " + table.getColumnInfoList().get(i).getName() + " = " + "#{" + classFile.getPropertyList().get(i).getName() + "} "
+						+ "  /* "+ table.getColumnInfoList().get(i).getComment() +" */";
 			}
 		}
 		sql += "\n\t\t";

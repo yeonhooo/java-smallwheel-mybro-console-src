@@ -3,6 +3,8 @@ package smallwheel.mybro.common;
 import smallwheel.mybro.support.builder.DtoClassBuilder;
 import org.apache.log4j.Logger;
 
+import com.google.common.base.CaseFormat;
+
 import java.sql.*;
 import java.util.*;
 
@@ -77,7 +79,7 @@ public class SharedInfo {
 				ResultSet keys = databaseMetaData.getPrimaryKeys(null, null, tableInfo.getName());
 				while (keys.next()) {
 					tableInfo.getPrimaryKeyColumnNameList().add(keys.getString("COLUMN_NAME"));
-					classInfo.getPropertyPrimaryKeyNameList().add(this.makePropertyName(keys.getString("COLUMN_NAME")));
+					classInfo.getPropertyPrimaryKeyNameList().add(CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, keys.getString("COLUMN_NAME")));
 				}
 
 				logger.info("[Table Name: " + tableInfo.getName() + " / Column Count: " + rm.getColumnCount() + "]");
@@ -92,10 +94,20 @@ public class SharedInfo {
 				// ClassName 을 만든다.
 				classInfo.setName(this.makeClassName(tableInfo.getEntityName()));
 
-				for (int i = 0; i < rm.getColumnCount(); i++) {
+//				for (int i = 0; i < rm.getColumnCount(); i++) {
+//					classInfo.getPropertyList().add(
+//							new PropertyInfo(this.makePropertyName(tableInfo.getColumnInfoList().get(i).getName()),
+//									this.makePropertyType(tableInfo .getColumnInfoList().get(i).getType())));
+//				}
+				
+				for ( ColumnInfo columnInfo : tableInfo.getColumnInfoList() ) {
 					classInfo.getPropertyList().add(
-							new PropertyInfo(this.makePropertyName(tableInfo.getColumnInfoList().get(i).getName()),
-									this.makePropertyType(tableInfo .getColumnInfoList().get(i).getType())));
+						new PropertyInfo(
+								CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, columnInfo.getName()),
+								this.makePropertyType(columnInfo.getType()),
+								columnInfo.getComment()
+						)
+					);
 				}
 
 				tableInfoList.add(tableInfo);
@@ -145,36 +157,36 @@ public class SharedInfo {
 	 * @param 변환 될 실제 DB 컬럼명
 	 * @return 변환 된 프로퍼티명(DB 컬럼명과 매칭)
 	 * */
-	protected String makePropertyName(String columnName) {
-		columnName = columnName.toLowerCase(Locale.ENGLISH);
-
-		while (true) {
-			if (columnName.indexOf("_") > -1) {
-				columnName = (columnName.substring(0, columnName.indexOf("_"))
-						+ columnName.substring(columnName.indexOf("_") + 1, columnName.indexOf("_") + 2).toUpperCase() + columnName
-						.substring(columnName.indexOf("_") + 2)).trim();
-			} else {
-				break;
-			}
-		}
-
-//		// 변경된 프로퍼티명이 자바 예약어이거나, 비정상적일 경우에 대한 처리		
-//		if (columnName.equals("continue")) {
-//			columnName = "continues";
-//		} else if (columnName.equals("r")) {
-//			columnName = "run";
-//		} else if (columnName.equals("w")) {
-//			columnName = "win";
-//		} else if (columnName.equals("l")) {
-//			columnName = "lose";
-//		} else if (columnName.equals("d")) {
-//			columnName = "draw";
-//		} else if (columnName.equals("s")) {
-//			columnName = "save";
+//	protected String makePropertyName(String columnName) {
+//		columnName = columnName.toLowerCase(Locale.ENGLISH);
+//
+//		while (true) {
+//			if (columnName.indexOf("_") > -1) {
+//				columnName = (columnName.substring(0, columnName.indexOf("_"))
+//						+ columnName.substring(columnName.indexOf("_") + 1, columnName.indexOf("_") + 2).toUpperCase() + columnName
+//						.substring(columnName.indexOf("_") + 2)).trim();
+//			} else {
+//				break;
+//			}
 //		}
-
-		return columnName;
-	}
+//
+////		// 변경된 프로퍼티명이 자바 예약어이거나, 비정상적일 경우에 대한 처리		
+////		if (columnName.equals("continue")) {
+////			columnName = "continues";
+////		} else if (columnName.equals("r")) {
+////			columnName = "run";
+////		} else if (columnName.equals("w")) {
+////			columnName = "win";
+////		} else if (columnName.equals("l")) {
+////			columnName = "lose";
+////		} else if (columnName.equals("d")) {
+////			columnName = "draw";
+////		} else if (columnName.equals("s")) {
+////			columnName = "save";
+////		}
+//
+//		return columnName;
+//	}
 
 	/**
 	 * 환경 설정 파일에 설정된 결합도에 따라 클래스의 프로퍼티 타입을 만든다.<br />
